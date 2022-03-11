@@ -1,0 +1,182 @@
+<!DOCTYPE html><html lang="zh" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>ubuntu sudo执行shell脚本环境变量失效 | Lu Ping's blog</title><meta name="keywords" content="ubuntu shell"><meta name="author" content="luping"><meta name="copyright" content="luping"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="问题描述普通用户下，设置并export一个变量，然后利用sudo执行echo命令，能得到变量的值，但是如果把echo命令写入脚本，然后再sudo执行脚本，就找不到变量，未能获取到值，如题情况如下： 123456789$ cat tesh.sh echo $var $ var&#x3D;aaa $ export var                       # export 变量 $ sudo echo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ubuntu sudo执行shell脚本环境变量失效">
+<meta property="og:url" content="https://s-luping.github.io/luping/2021/11/02/sudo%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E6%89%BE%E4%B8%8D%E5%88%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="Lu Ping&#39;s blog">
+<meta property="og:description" content="问题描述普通用户下，设置并export一个变量，然后利用sudo执行echo命令，能得到变量的值，但是如果把echo命令写入脚本，然后再sudo执行脚本，就找不到变量，未能获取到值，如题情况如下： 123456789$ cat tesh.sh echo $var $ var&#x3D;aaa $ export var                       # export 变量 $ sudo echo">
+<meta property="og:locale">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2021-11-01T20:43:38.000Z">
+<meta property="article:modified_time" content="2022-03-11T15:11:53.807Z">
+<meta property="article:author" content="luping">
+<meta property="article:tag" content="ubuntu shell">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/luping/img/favicon.png"><link rel="canonical" href="https://s-luping.github.io/luping/2021/11/02/sudo%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E6%89%BE%E4%B8%8D%E5%88%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E5%91%BD%E4%BB%A4/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/luping/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/luping/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: 'Copy successfully',
+    error: 'Copy error',
+    noSupport: 'The browser does not support'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: 'days',
+  date_suffix: {
+    just: 'Just',
+    min: 'minutes ago',
+    hour: 'hours ago',
+    day: 'days ago',
+    month: 'months ago'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery@2/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'ubuntu sudo执行shell脚本环境变量失效',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-03-11 15:11:53'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/luping/atom.xml" title="Lu Ping's blog" type="application/atom+xml">
+</head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/luping/img/touxiang.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/luping/archives/"><div class="headline">Articles</div><div class="length-num">11</div></a><a href="/luping/tags/"><div class="headline">Tags</div><div class="length-num">10</div></a><a href="/luping/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/luping/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/luping/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://blog.csdn.net/kun666666?spm=1010.2135.3001.5343"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/luping/">Lu Ping's blog</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/luping/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/luping/archives/"><i class="fa-fw fas fa-archive"></i><span> 档案</span></a></div><div class="menus_item"><a class="site-page" target="_blank" rel="noopener" href="https://blog.csdn.net/kun666666?spm=1010.2135.3001.5343"><i class="fa-fw fas fa-link"></i><span> 友情链接</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">ubuntu sudo执行shell脚本环境变量失效</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">Created</span><time class="post-meta-date-created" datetime="2021-11-01T20:43:38.000Z" title="Created 2021-11-01 20:43:38">2021-11-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">Updated</span><time class="post-meta-date-updated" datetime="2022-03-11T15:11:53.807Z" title="Updated 2022-03-11 15:11:53">2022-03-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="ubuntu sudo执行shell脚本环境变量失效"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">Post View:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h1><p><strong>普通用户下，设置并export一个变量，然后利用sudo执行echo命令，能得到变量的值，但是如果把echo命令写入脚本，然后再sudo执行脚本，就找不到变量，未能获取到值，如题情况如下：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> tesh.sh </span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$var</span> </span><br><span class="line">$ var=aaa </span><br><span class="line">$ <span class="built_in">export</span> var                       <span class="comment"># export 变量 </span></span><br><span class="line">$ sudo <span class="built_in">echo</span> <span class="variable">$var</span>                   <span class="comment"># sudo执行echo命令，返回变量值 </span></span><br><span class="line">aaa </span><br><span class="line">$ sudo bash test.sh                <span class="comment"># sudo执行脚本，不能获取变量值 </span></span><br><span class="line"></span><br><span class="line">$ bash test.sh                     <span class="comment"># 普通用户执行脚本，返回变量值 </span></span><br></pre></td></tr></table></figure>
+
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p><strong>sudo运行时，会默认重置环境变量为安全的环境变量，也即，但前面设置的变量都会失效，只有少数配置文件中指定的环境变量能保存下来。</strong></p>
+<p><strong>sudo的配置文件是 &#x2F;etc&#x2F;sudoers 需要root权限才能读取:</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo sed ‘/^<span class="comment">#/d;/^$/d’ /etc/sudoers</span></span><br><span class="line"></span><br><span class="line">Defaults env_reset </span><br><span class="line">Defaults mail_badpass </span><br><span class="line">Defaults secure_path=”/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin” </span><br><span class="line">root ALL=(ALL:ALL) ALL </span><br><span class="line">%sudo ALL=(ALL:ALL) ALL </span><br><span class="line">xxx ALL=(ALL:ALL) NOPASSWD:ALL</span><br></pre></td></tr></table></figure>
+
+<p><strong>不过可以直接通过sudo -l来查看sudo的限制：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -l</span><br><span class="line"></span><br><span class="line">Matching Defaults entries <span class="keyword">for</span> xxx on this host: </span><br><span class="line">env_reset, mail_badpass,</span><br><span class="line">secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin </span><br><span class="line"></span><br><span class="line">User xxx may run the following commands on this host:</span><br><span class="line"> (ALL : ALL) NOPASSWD: ALL</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意看第一行的选项 Defaults env_reset 表示默认会将环境变量重置，这样你定义的变量在sudo环境就会失效，获取不到。<br>另外有的发行版还有一个Defaults env_keep&#x3D;”“的选项，用于保留部分环境变量不被重置，需要保留的变量就写入双引号中。</strong></p>
+<p>为什么sudo echo $var能获取到变量值？<br>既然利用sudo执行会重置环境变量，那么为什么还能echo获取到相应的变量呢？<br><strong>这是由于shell命令行的替换&amp;重组功能，在输入命令，按下回车时，shell会先依据分隔符将命令行切割成字段，对每个字段查找有没有变量或命令替换，再替换完成后，重组成新的命令，再去执行。<br>所以，命令实际执行是：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo <span class="built_in">echo</span> <span class="variable">$var</span>                   <span class="comment"># $var =&gt; aaa </span></span><br><span class="line">(sudo <span class="built_in">echo</span> aaa)                    <span class="comment"># 完成命令替换&amp;重组 </span></span><br><span class="line">(<span class="built_in">echo</span> aaa)                         <span class="comment"># sudo环境中执行 </span></span><br><span class="line">aaa</span><br></pre></td></tr></table></figure>
+
+<p>因此，sudo环境重置后，并不用去引用$var这个变量，而是直接echo aaa。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p><strong>sudo -E<br>简单来说，就是加上-E选项后，用户可以在sudo执行时保留当前用户已存在的环境变量，不会被sudo重置，另外，如果用户对于指定的环境变量没有权限，则会报错。</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo -E bash test.sh <span class="comment"># 加上-E参数后就可以获取到变量 aaa</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 修改sudo配置文件</strong><br>在内部测试机器中，安全性要求不高，总是需要加上-E参数来执行脚本，这个安全设定也不是很方便，可以通过visudo命令来修改配置为保留原有的环境变量，具体修改如下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> visudo </span><br><span class="line"><span class="comment"># Defaults env_reset                  # 注释掉原有配置 </span></span><br><span class="line"><span class="comment"># Defaults env_keep=”…”               # 注释掉指定的变量保持</span></span><br></pre></td></tr></table></figure>
+
+<p>Defaults !env_reset # 修改为不重置环境<br><strong>3. 手动添加变量</strong><br>手动在脚本中设置所需的变量，这样看起来比较麻烦，或者在执行sudo脚本前先将所需要的变量写入到要执行的脚本开头.</p>
+<p><em>命令<br>对于自己安装的软件在sudo提示找不到的命令（没加sudo可以找到），在这个后面添加命令所在的路径</em></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin </span><br><span class="line">1</span><br><span class="line">secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin:自定义路径 </span><br></pre></td></tr></table></figure>
+
+<h1 id="visudo编辑模式和退出"><a href="#visudo编辑模式和退出" class="headerlink" title="visudo编辑模式和退出"></a>visudo编辑模式和退出</h1><p><strong>执行</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$sudo</span> visudo</span><br></pre></td></tr></table></figure>
+<p>找到如下授权，注释</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%admin ALL=(ALL) ALL</span><br></pre></td></tr></table></figure>
+<p>修改为新的授权，意思是不需要密码执行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%admin ALL=(ALL) NOPASSWD: ALL</span><br></pre></td></tr></table></figure>
+<p><strong>保存并退出：</strong><br><em>保存</em><br>执行“Ctrl+O”*</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">Author: </span><span class="post-copyright-info"><a href="https://s-luping.github.io/luping">luping</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">Link: </span><span class="post-copyright-info"><a href="https://s-luping.github.io/luping/2021/11/02/sudo%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E6%89%BE%E4%B8%8D%E5%88%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E5%91%BD%E4%BB%A4/">https://s-luping.github.io/luping/2021/11/02/sudo%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E6%89%BE%E4%B8%8D%E5%88%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E5%91%BD%E4%BB%A4/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">Copyright Notice: </span><span class="post-copyright-info">All articles in this blog are licensed under <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> unless stating additionally.</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/luping/tags/ubuntu-shell/">ubuntu shell</a></div><div class="post_share"><div class="addthis_inline_share_toolbox"></div><script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=null" async="async"></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/luping/2021/11/23/spark%E5%B0%86%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%88%B0hbase--bulkload%E6%96%B9%E5%BC%8F/"><img class="prev-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/luping/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">Previous Post</div><div class="prev_info">spark将数据加载到hbase--bulkload方式</div></div></a></div><div class="next-post pull-right"><a href="/luping/2021/10/27/Hive%E7%BD%91%E7%AB%99%E6%97%A5%E5%BF%97%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90/"><img class="next-cover" src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/luping/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">Next Post</div><div class="next_info">Hive网站日志采集统计分析</div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/luping/img/touxiang.jpg" onerror="this.onerror=null;this.src='/luping/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">luping</div><div class="author-info__description">there are some notes of luping</div></div><div class="card-info-data site-data is-center"><a href="/luping/archives/"><div class="headline">Articles</div><div class="length-num">11</div></a><a href="/luping/tags/"><div class="headline">Tags</div><div class="length-num">10</div></a><a href="/luping/categories/"><div class="headline">Categories</div><div class="length-num">0</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/s-luping" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:461093788@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>Announcement</span></div><div class="announcement_content">Welcome to my Blog!</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>Catalog</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%97%AE%E9%A2%98%E6%8F%8F%E8%BF%B0"><span class="toc-number">1.</span> <span class="toc-text">问题描述</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8E%9F%E5%9B%A0"><span class="toc-number">2.</span> <span class="toc-text">原因</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3"><span class="toc-number">3.</span> <span class="toc-text">解决</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#visudo%E7%BC%96%E8%BE%91%E6%A8%A1%E5%BC%8F%E5%92%8C%E9%80%80%E5%87%BA"><span class="toc-number">4.</span> <span class="toc-text">visudo编辑模式和退出</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>Recent Post</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/luping/2022/02/11/vue%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="vue学习记录"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/luping/img/404.jpg'" alt="vue学习记录"/></a><div class="content"><a class="title" href="/luping/2022/02/11/vue%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" title="vue学习记录">vue学习记录</a><time datetime="2022-02-10T20:43:38.000Z" title="Created 2022-02-10 20:43:38">2022-02-10</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/luping/2021/11/23/spark%E5%B0%86%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%88%B0hbase--bulkload%E6%96%B9%E5%BC%8F/" title="spark将数据加载到hbase--bulkload方式"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/luping/img/404.jpg'" alt="spark将数据加载到hbase--bulkload方式"/></a><div class="content"><a class="title" href="/luping/2021/11/23/spark%E5%B0%86%E6%95%B0%E6%8D%AE%E5%8A%A0%E8%BD%BD%E5%88%B0hbase--bulkload%E6%96%B9%E5%BC%8F/" title="spark将数据加载到hbase--bulkload方式">spark将数据加载到hbase--bulkload方式</a><time datetime="2021-11-22T21:30:25.000Z" title="Created 2021-11-22 21:30:25">2021-11-22</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/luping/2021/11/02/sudo%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E6%89%BE%E4%B8%8D%E5%88%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E5%91%BD%E4%BB%A4/" title="ubuntu sudo执行shell脚本环境变量失效"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/luping/img/404.jpg'" alt="ubuntu sudo执行shell脚本环境变量失效"/></a><div class="content"><a class="title" href="/luping/2021/11/02/sudo%E6%89%A7%E8%A1%8C%E8%84%9A%E6%9C%AC%E6%89%BE%E4%B8%8D%E5%88%B0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%92%8C%E5%91%BD%E4%BB%A4/" title="ubuntu sudo执行shell脚本环境变量失效">ubuntu sudo执行shell脚本环境变量失效</a><time datetime="2021-11-01T20:43:38.000Z" title="Created 2021-11-01 20:43:38">2021-11-01</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/luping/2021/10/27/Hive%E7%BD%91%E7%AB%99%E6%97%A5%E5%BF%97%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90/" title="Hive网站日志采集统计分析"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/luping/img/404.jpg'" alt="Hive网站日志采集统计分析"/></a><div class="content"><a class="title" href="/luping/2021/10/27/Hive%E7%BD%91%E7%AB%99%E6%97%A5%E5%BF%97%E7%BB%9F%E8%AE%A1%E5%88%86%E6%9E%90/" title="Hive网站日志采集统计分析">Hive网站日志采集统计分析</a><time datetime="2021-10-26T22:12:06.000Z" title="Created 2021-10-26 22:12:06">2021-10-26</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/luping/2021/10/11/Hive%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E2%BD%87%E5%BF%97%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="Hive新浪微博日志查询分析"><img src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/luping/img/404.jpg'" alt="Hive新浪微博日志查询分析"/></a><div class="content"><a class="title" href="/luping/2021/10/11/Hive%E6%96%B0%E6%B5%AA%E5%BE%AE%E5%8D%9A%E2%BD%87%E5%BF%97%E6%95%B0%E6%8D%AE%E5%88%86%E6%9E%90/" title="Hive新浪微博日志查询分析">Hive新浪微博日志查询分析</a><time datetime="2021-10-10T22:12:06.000Z" title="Created 2021-10-10 22:12:06">2021-10-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By luping</div><div class="framework-info"><span>Framework </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>Theme </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="Toggle Between Light And Dark Mode"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="Toggle between single-column and double-column"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="Setting"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="Table Of Contents"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="Back To Top"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/luping/js/utils.js"></script><script src="/luping/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.js"></script><div class="js-pjax"></div><div><a target="_blank" href="http://mail.qq.com/cgi-bin/qm_share?t=qm_mailme&email=u8jXzsvS1dz73dTD1trS15XY1NY" style="text-decoration:none;right:0"> <img src="http://rescdn.qqmail.com/zh_CN/htmledition/images/function/qm_open/ico_mailme_02.png"/> </a></div><canvas class="fireworks" mobile="false"></canvas><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/fireworks.min.js"></script><script defer="defer" id="fluttering_ribbon" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/canvas-fluttering-ribbon.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
