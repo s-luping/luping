@@ -119,14 +119,14 @@
 
   
   <url>
-    <loc>https://s-luping.github.io/luping/tags/Hadoop/</loc>
+    <loc>https://s-luping.github.io/luping/tags/Hive/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://s-luping.github.io/luping/tags/Hive/</loc>
+    <loc>https://s-luping.github.io/luping/tags/Hadoop/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -140,13 +140,6 @@
   </url>
   
   <url>
-    <loc>https://s-luping.github.io/luping/tags/spark/</loc>
-    <lastmod>2022-03-13</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://s-luping.github.io/luping/tags/hive-sql-UDF/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
@@ -154,7 +147,7 @@
   </url>
   
   <url>
-    <loc>https://s-luping.github.io/luping/tags/vue/</loc>
+    <loc>https://s-luping.github.io/luping/tags/spark/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -168,7 +161,7 @@
   </url>
   
   <url>
-    <loc>https://s-luping.github.io/luping/tags/python-%E7%88%AC%E8%99%AB/</loc>
+    <loc>https://s-luping.github.io/luping/tags/vue/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -188,6 +181,13 @@
     <priority>0.2</priority>
   </url>
   
+  <url>
+    <loc>https://s-luping.github.io/luping/tags/python-%E7%88%AC%E8%99%AB/</loc>
+    <lastmod>2022-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
 
   
   <url>
@@ -198,14 +198,14 @@
   </url>
   
   <url>
-    <loc>https://s-luping.github.io/luping/categories/web/</loc>
+    <loc>https://s-luping.github.io/luping/categories/linux/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://s-luping.github.io/luping/categories/linux/</loc>
+    <loc>https://s-luping.github.io/luping/categories/web/</loc>
     <lastmod>2022-03-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
