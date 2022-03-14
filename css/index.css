@@ -1392,7 +1392,7 @@ input::placeholder {
   z-index: -999;
   width: 100%;
   height: 100%;
-  background: url(/luping/img/background.jpg);
+  background: https://tse1-mm.cn.bing.net/th/id/R-C.7c0ebfefa1de5773633a4db0c0c6e5d4?rik=d%2fjvTW8%2fpXQp%2bw&riu=http%3a%2f%2fimg2-bs.511doc.com%2fmark%2f00%2f00%2f20%2f28%2f202893_31f1a00c3c76ffb50d4fc3d9a6ddd27b.jpg!%2fquality%2f90%2funsharp%2ftrue%2fcompress%2ftrue%2ffw%2f640%2fcrop%2f640x500a0a0&ehk=ziINjsVBactiVI%2fo4wj5qZbQZt5hz9E9gjjHciyJ3XQ%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1;
   background-attachment: local;
   background-position: center;
   -webkit-background-size: cover;
@@ -3154,6 +3154,13 @@ h1.page-title + .tag-cloud-list {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
+}
+#footer:before {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  content: '';
 }
 #footer-wrap {
   position: relative;
