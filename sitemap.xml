@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://sluping.gitee.io/luping/2021/10/03/Hive%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
+    <loc>https://sluping.gitee.io/luping/2021/04/02/Hadoop%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
     
     <lastmod>2022-03-15</lastmod>
     
@@ -11,9 +11,9 @@
   </url>
   
   <url>
-    <loc>https://sluping.gitee.io/luping/2021/04/02/Hadoop%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
+    <loc>https://sluping.gitee.io/luping/2021/10/03/Hive%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</loc>
     
-    <lastmod>2022-03-14</lastmod>
+    <lastmod>2022-03-15</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -126,6 +126,13 @@
   </url>
   
   <url>
+    <loc>https://sluping.gitee.io/luping/tags/spark/</loc>
+    <lastmod>2022-03-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://sluping.gitee.io/luping/tags/Hive/</loc>
     <lastmod>2022-03-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -140,20 +147,6 @@
   </url>
   
   <url>
-    <loc>https://sluping.gitee.io/luping/tags/hive-sql/</loc>
-    <lastmod>2022-03-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://sluping.gitee.io/luping/tags/spark/</loc>
-    <lastmod>2022-03-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>https://sluping.gitee.io/luping/tags/ubuntu-shell/</loc>
     <lastmod>2022-03-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -161,7 +154,7 @@
   </url>
   
   <url>
-    <loc>https://sluping.gitee.io/luping/tags/vue/</loc>
+    <loc>https://sluping.gitee.io/luping/tags/hive-sql/</loc>
     <lastmod>2022-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -175,7 +168,7 @@
   </url>
   
   <url>
-    <loc>https://sluping.gitee.io/luping/tags/python-%E7%88%AC%E8%99%AB-%E8%88%86%E8%AE%BA%E7%9B%91%E6%B5%8B/</loc>
+    <loc>https://sluping.gitee.io/luping/tags/vue/</loc>
     <lastmod>2022-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -183,6 +176,13 @@
   
   <url>
     <loc>https://sluping.gitee.io/luping/tags/python-%E9%9A%8F%E6%9C%BA%E6%A3%AE%E6%9E%97/</loc>
+    <lastmod>2022-03-15</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://sluping.gitee.io/luping/tags/python-%E7%88%AC%E8%99%AB-%E8%88%86%E8%AE%BA%E7%9B%91%E6%B5%8B/</loc>
     <lastmod>2022-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -205,14 +205,14 @@
   </url>
   
   <url>
-    <loc>https://sluping.gitee.io/luping/categories/web/</loc>
+    <loc>https://sluping.gitee.io/luping/categories/python/</loc>
     <lastmod>2022-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://sluping.gitee.io/luping/categories/python/</loc>
+    <loc>https://sluping.gitee.io/luping/categories/web/</loc>
     <lastmod>2022-03-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
