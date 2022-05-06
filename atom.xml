@@ -6,7 +6,7 @@
   <link href="https://s-luping.github.io/luping/atom.xml" rel="self"/>
   
   <link href="https://s-luping.github.io/luping/"/>
-  <updated>2022-03-13T12:28:56.437Z</updated>
+  <updated>2022-05-06T15:30:45.619Z</updated>
   <id>https://s-luping.github.io/luping/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>spark分区</title>
+    <link href="https://s-luping.github.io/luping/2022/05/07/spark%E5%88%86%E5%8C%BA/"/>
+    <id>https://s-luping.github.io/luping/2022/05/07/spark%E5%88%86%E5%8C%BA/</id>
+    <published>2022-05-07T06:55:17.000Z</published>
+    <updated>2022-05-06T15:30:45.619Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>如下读取mysql表时默认是一个分区 查询结果只有一个task在跑</p><figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> jdbcDF = spark.read.jdbc(url,tableName,prop)</span><br></pre></td></tr></table></figure><p>这种读取读大表（千万级）就会OOM<br>因此在读取时要用到spark分区</p><h1 id="理解spark分区"><a href="#理解spark分区" class="headerlink" title="理解spark分区"></a>理解spark分区</h1><p>就是将一个非常大的任务拆分为多个小任务，小任务数量最好满足整除Executor数量*Executor核心数量，这样可以提供资源利用率。<br>这就是在spark调优中，增大RDD分区数目，增大任务并行度的原因。</p><h1 id="spark分区-什么时候增加的，增加有什么用？"><a href="#spark分区-什么时候增加的，增加有什么用？" class="headerlink" title="spark分区 什么时候增加的，增加有什么用？"></a>spark分区 什么时候增加的，增加有什么用？</h1><p>接下来的描述，是针对于sparksql（也就是把数据加载成Dataset之后再处理）来说的。</p><p>1.增加分区数，可以增加并行度，当spark申请的cpu核心足够的情况下，可以同时跑不同分区的数据（因为一个分区的数据，只能由一个核心来跑，不能多个）</p><p>2.手动增加，使用repartition来将所有数据打散</p><p>3.自动增加，spark有个参数：spark.sql.shuffle.partitions，默认值为200。也就是说当触发shuffle逻辑的时候，数据会自动分为200个分区运行，但是在数据量大的情况下，每个分区的数据量太大，而且假设spark申请到了300个核心，但是因为分区数只有200，会导致只有200个核心在运行，另外100个核心在空转（虽然占用资源但是却不干活）。所以可以将该参数设置为500甚至更大，来增加分区数和并行度。</p><h1 id="repartition适用场景"><a href="#repartition适用场景" class="headerlink" title="repartition适用场景"></a>repartition适用场景</h1><p>RDD单个分区数据量比较大，或者单个分区处理比较慢，<br>数据倾斜</p><p>转载于<br>[<a href="https://blog.csdn.net/qq_22473611/article/details/107822168]">https://blog.csdn.net/qq_22473611/article/details/107822168]</a></p>]]></content>
+    
+    
+    <summary type="html">在一次spark读取mysql千万级大表时的</summary>
+    
+    
+    
+    <category term="bigdata" scheme="https://s-luping.github.io/luping/categories/bigdata/"/>
+    
+    
+    <category term="spark" scheme="https://s-luping.github.io/luping/tags/spark/"/>
+    
+  </entry>
   
   <entry>
     <title>vue学习记录</title>
