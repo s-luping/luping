@@ -6,7 +6,7 @@
   <link href="https://s-luping.github.io/luping/atom.xml" rel="self"/>
   
   <link href="https://s-luping.github.io/luping/"/>
-  <updated>2022-05-06T15:30:45.619Z</updated>
+  <updated>2022-07-14T13:19:32.505Z</updated>
   <id>https://s-luping.github.io/luping/</id>
   
   <author>
@@ -15,6 +15,27 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>sql基础</title>
+    <link href="https://s-luping.github.io/luping/2022/07/15/sql%E5%9F%BA%E7%A1%80/"/>
+    <id>https://s-luping.github.io/luping/2022/07/15/sql%E5%9F%BA%E7%A1%80/</id>
+    <published>2022-07-15T05:16:16.000Z</published>
+    <updated>2022-07-14T13:19:32.505Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="start-with-递归查询"><a href="#start-with-递归查询" class="headerlink" title="start with 递归查询"></a>start with 递归查询</h2><p>当一张表出现层级关系，需求查询树状结果<br>例图：<br><img src="D:/OneDrive/桌面/微信图片_20220714210222.png"><br><img src="/luping/2022/07/15/sql%E5%9F%BA%E7%A1%80/img_digui.png" alt="img_digui.png"></p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Select ID, PID, DSC, LEVEL</span><br><span class="line">From DEMO</span><br><span class="line">StartWith ID =&#x27;00001&#x27;</span><br><span class="line">ConnectBy nocycle prior ID = PID;</span><br></pre></td></tr></table></figure><p>nocycle : 跳出循环<br>prior ：</p><ol><li><p>prior放在子节点端，则表示扫描树是以start with指定的节点作为根节点从上往下扫描。可能对应一个或多 个分支。<br>start with可以省略，如果省略，表示对所有节点都当成根节点分别进行遍历</p></li><li><p>prior放在父节点端，则表示扫描树是以start with指定的节点作为最低层子节点，从下往上扫描。顺序是子节点往父节点扫描，直到根节点为止，这种情况只能得到一个分支。<br>Group By 字句增强 grouping sets</p><h2 id="使用grouping-sets代替多次union"><a href="#使用grouping-sets代替多次union" class="headerlink" title="使用grouping sets代替多次union"></a>使用grouping sets代替多次union</h2><p>例：</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">select DEPARTMENT_ID,JOB_ID,null as MANAGER_ID,max(SALARY),min(SALARY)</span><br><span class="line">from EMPLOYEES</span><br><span class="line">group by (DEPARTMENT_ID, JOB_ID)</span><br><span class="line">union</span><br><span class="line">select null as DEPARTMENT_ID,JOB_ID,MANAGER_ID,max(SALARY),min(SALARY)</span><br><span class="line">from EMPLOYEES</span><br><span class="line">group by (JOB_ID,MANAGER_ID)</span><br><span class="line">order by DEPARTMENT_ID;</span><br></pre></td></tr></table></figure><p>代替</p><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select DEPARTMENT_ID,JOB_ID,MANAGER_ID,max(SALARY),min(SALARY)</span><br><span class="line">from EMPLOYEES</span><br><span class="line">group by grouping sets ( (DEPARTMENT_ID, JOB_ID), (JOB_ID,MANAGER_ID));</span><br></pre></td></tr></table></figure><h1 id="sql优化"><a href="#sql优化" class="headerlink" title="sql优化"></a>sql优化</h1><h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2></li><li><p>使用最小合适的数据类型，如能使用tinyint不适用int</p></li><li><p>使用时设置合适的长度，如name varchar(30)</p></li><li><p>尽量避免bull</p><h1 id="大表创建索引优化查询速度"><a href="#大表创建索引优化查询速度" class="headerlink" title="大表创建索引优化查询速度"></a>大表创建索引优化查询速度</h1></li><li><p>索引包含多列，注意MySQL只能高效使用最左前缀列</p></li><li><p>使用索引时将索引单独放置比较符号一侧</p></li><li><p>查询使用到多个索引时把选择性最高的列放到最前，即区分精度最高的列</p></li></ol>]]></content>
+    
+    
+    <summary type="html">sql基础知识</summary>
+    
+    
+    
+    <category term="database" scheme="https://s-luping.github.io/luping/categories/database/"/>
+    
+    
+    <category term="sql" scheme="https://s-luping.github.io/luping/tags/sql/"/>
+    
+  </entry>
   
   <entry>
     <title>spark分区</title>

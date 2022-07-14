@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://s-luping.github.io/luping/sql%E5%9F%BA%E7%A1%80/index.html</loc>
+    <loc>https://s-luping.github.io/luping/2022/07/15/sql%E5%9F%BA%E7%A1%80/</loc>
     
     <lastmod>2022-07-14</lastmod>
     
@@ -137,14 +137,14 @@
 
   
   <url>
-    <loc>https://s-luping.github.io/luping/tags/Hadoop/</loc>
+    <loc>https://s-luping.github.io/luping/tags/Hive/</loc>
     <lastmod>2022-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://s-luping.github.io/luping/tags/Hive/</loc>
+    <loc>https://s-luping.github.io/luping/tags/Hadoop/</loc>
     <lastmod>2022-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -166,6 +166,13 @@
   
   <url>
     <loc>https://s-luping.github.io/luping/tags/spark/</loc>
+    <lastmod>2022-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://s-luping.github.io/luping/tags/sql/</loc>
     <lastmod>2022-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -210,6 +217,13 @@
   
   <url>
     <loc>https://s-luping.github.io/luping/categories/bigdata/</loc>
+    <lastmod>2022-07-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://s-luping.github.io/luping/categories/database/</loc>
     <lastmod>2022-07-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
